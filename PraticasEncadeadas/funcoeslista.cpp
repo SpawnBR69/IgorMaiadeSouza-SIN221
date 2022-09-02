@@ -53,7 +53,7 @@ void insereListaUltimo(TipoLista *lista, TipoItem *item){
     lista->ultimo->item=*item;
     lista->tamanho++;
 }
-void InsereListaAposElemento(TipoLista *lista, TipoItem *item, int id){
+void insereListaAposElemento(TipoLista *lista, TipoItem *item, int id){
     Apontador aux, pAux, x;
     bool find = false;
     pAux = lista->primeiro->prox;
@@ -70,7 +70,6 @@ void InsereListaAposElemento(TipoLista *lista, TipoItem *item, int id){
         pAux = pAux->prox; /* próxima célula */
     }
     if (find){
-        cout << "Item inserido com sucesso!";
         atualizaUltimo(lista);
         lista->tamanho++;
     }
@@ -88,7 +87,7 @@ void imprimeLista(TipoLista *lista){
     }while(anterior!=NULL);
 }
 
-int PesquisaItem(TipoLista *lista, int id){
+int pesquisaItem(TipoLista *lista, int id){
     Apontador aux;
     aux = lista->primeiro->prox;
     while (aux != NULL){
@@ -100,7 +99,7 @@ int PesquisaItem(TipoLista *lista, int id){
     return -1;
 }
 
-void ImprimeItem(TipoLista *lista, int id){
+void imprimeItem(TipoLista *lista, int id){
     Apontador aux;
     aux = lista->primeiro->prox;
     while (aux != NULL){
@@ -112,7 +111,7 @@ void ImprimeItem(TipoLista *lista, int id){
     }
 }
 
-void RemoveListaPrimeiro(TipoLista *lista){
+void removeListaPrimeiro(TipoLista *lista){
     if (verificaListaVazia(*lista)){
         return;
     }
@@ -123,7 +122,7 @@ void RemoveListaPrimeiro(TipoLista *lista){
     lista->tamanho--;
 }
 
-void RemoveListaUltimo(TipoLista *lista){
+void removeListaUltimo(TipoLista *lista){
     if (verificaListaVazia(*lista)){
         return;
     }
@@ -139,7 +138,7 @@ void RemoveListaUltimo(TipoLista *lista){
     lista->tamanho--;
 }
 
-void RemoveItemPorId(TipoLista *lista, int id){
+void removeItemPorId(TipoLista *lista, int id){
     if (verificaListaVazia(*lista)){
         return;
     }
