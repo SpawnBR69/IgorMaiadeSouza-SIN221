@@ -2,6 +2,8 @@
 #include "funcoes.hpp"
  
 using namespace std;
+
+ListaFunc lista;
  
 void incluirFuncionario(){
     Func funcionario;
@@ -18,7 +20,7 @@ void incluirFuncionario(){
     cout << "Está trabalhando em algum projeto no momento?(s/n)"<<endl;
     cin >> dec;
     criaListaVaziaA(&funcionario.projetos);
-    while(dec == 's' || i < 5){
+    while(dec == 's' && i < 5){
         Proj projeto;
         cout << "Insira o ID do projeto"<<endl;
         cin >> projeto.chave;
@@ -31,9 +33,15 @@ void incluirFuncionario(){
         cout << "Mais algum projeto?"<<endl;
         cin >> dec;
     }
+    criaListaVaziaE(&lista);
+    insereListaPrimeiroE(&lista,&funcionario);
 }
 
+void incluirProjetos(){
+
+}
 
 int main() {
     incluirFuncionario();
+
 }

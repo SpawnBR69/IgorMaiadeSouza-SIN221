@@ -3,6 +3,25 @@
 
 #define MAXTAM 5
 
+using namespace std;
+
+typedef int ApontadorProj;
+
+typedef struct Proj
+{
+    int chave;
+    string nome;
+    int horas ;
+};
+
+typedef struct ListaProj
+{
+    Proj Item[MAXTAM];
+    ApontadorProj Primeiro, Ultimo;
+    int tamanho;
+};
+
+
 typedef struct Func
 {
     int id;
@@ -27,25 +46,9 @@ typedef struct ListaFunc
     int tamanho = 0;
 } ListaFunc;
 
-typedef int ApontadorProj;
-
-typedef struct Proj
-{
-    int chave;
-    string nome;
-    int horas ;
-};
-
-typedef struct ListaProj
-{
-    Proj Item[MAXTAM];
-    ApontadorProj Primeiro, Ultimo;
-    int tamanho;
-};
-
 bool listaCriada = false;
 
-using namespace std;
+
 
 void criaListaVaziaA(ListaProj *lista)
 {
@@ -55,7 +58,7 @@ void criaListaVaziaA(ListaProj *lista)
         lista->Primeiro = 0;
         lista->Ultimo = lista->Primeiro;
         cout << "Lista criada com sucesso!";
-        listaCriada = true;
+        //listaCriada = true;
     }
     else
     {
@@ -169,6 +172,16 @@ int tamanhoListaE(ListaFunc *lista)
 {
     return lista->tamanho;
 }
+void atualizaUltimo(ListaFunc *lista)
+{
+    ApontadorFunc aux;
+    aux = lista->primeiro->prox;
+    while (aux->prox != NULL)
+    {
+        aux = aux->prox;
+    }
+    lista->ultimo = aux;
+}
 
 void insereListaPrimeiroE(ListaFunc *lista, Func *item)
 {
@@ -179,17 +192,6 @@ void insereListaPrimeiroE(ListaFunc *lista, Func *item)
     lista->primeiro->prox->item = *item;
     lista->tamanho++;
     atualizaUltimo(lista);
-}
-
-void atualizaUltimo(ListaFunc *lista)
-{
-    ApontadorFunc aux;
-    aux = lista->primeiro->prox;
-    while (aux->prox != NULL)
-    {
-        aux = aux->prox;
-    }
-    lista->ultimo = aux;
 }
 
 void insereListaUltimoE(ListaFunc *lista, Func *item)
