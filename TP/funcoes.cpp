@@ -102,6 +102,8 @@ void imprimeListaA(ListaProj lista)
         for (Aux = lista.Primeiro; Aux <= (lista.Ultimo - 1); Aux++)
         {
             cout << "Chave: " << lista.Item[Aux].chave << endl;
+            cout << "Nome: " << lista.Item[Aux].nome << endl;
+            cout << "Horas: " << lista.Item[Aux].horas << endl;
         }
         cout << endl;
         system("Pause");
