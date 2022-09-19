@@ -10,7 +10,7 @@ typedef int ApontadorProj;
 typedef struct Proj
 {
     int chave;
-    string nome;
+    char nome[20];
     int horas ;
 };
 
@@ -249,8 +249,10 @@ void imprimeListaE(ListaFunc lista)
     while (aux != NULL)
     {
         cout << "ID: " << aux->item.id << endl;
-        cout << "Nome: " << aux->item.nome << endl
-             << endl;
+        cout << "Nome: " << aux->item.nome << endl;
+        cout << "Endereço: " << aux->item.endereco << endl;
+        cout << "Número de Dependentes: " << aux->item.dependentes << endl;
+        imprimeListaA(aux->item.projetos);
         aux = aux->prox;
     }
     system("pause");
@@ -280,8 +282,10 @@ void imprimeItemE(ListaFunc *lista, int id)
         if (aux->item.id == id)
         {
             cout << "ID: " << aux->item.id << endl;
-            cout << "Nome: " << aux->item.nome << endl
-                 << endl;
+            cout << "Nome: " << aux->item.nome << endl;
+            cout << "Endereço: " << aux->item.endereco << endl;
+            cout << "Número de Dependentes: " << aux->item.dependentes << endl;
+            imprimeListaA(aux->item.projetos);
             break;
         }
         aux = aux->prox;

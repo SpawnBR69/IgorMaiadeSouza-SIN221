@@ -72,6 +72,6 @@ void incluirProjetos(int id){
 
 int main() {
     incluirFuncionario();
-    
+    imprimeItemE(&lista,1);
 
 }
