@@ -4,43 +4,51 @@
 using namespace std;
 
 ListaFunc lista;
- 
+
 void incluirFuncionario(){
     Func funcionario;
     char dec;
     int i=0;
     cout << "Insira o ID do funcionário"<< endl;
-    cin >> funcionario.id;
+    //cin >> funcionario.id;
+    funcionario.id = 1;
     cout << "Insira o nome do funcionário"<< endl;
-    cin >> funcionario.nome;
+    //cin >> funcionario.nome;
+    funcionario.nome = "Igor";
     cout << "Insira o endereço do funcionário"<<endl;
-    cin >> funcionario.endereco;
+    //cin >> funcionario.endereco;
+    funcionario.endereco = "sex";
     cout << "Insira o numero de dependentes do funcionário"<<endl;
-    cin >> funcionario.dependentes;
+    //cin >> funcionario.dependentes;
+    funcionario.dependentes = 3;
     cout << "Está trabalhando em algum projeto no momento?(s/n)"<<endl;
-    cin >> dec;
+    //cin >> dec;
+    dec = 's';
     criaListaVaziaA(&funcionario.projetos);
     while(dec == 's' || dec == 'S' && i < 5){
         Proj projeto;
         cout << "Insira o ID do projeto"<<endl;
-        cin >> projeto.chave;
+        //cin >> projeto.chave;
+        projeto.chave = 1;
         cout << "Insira o nome do projeto" << endl;
-        cin >> projeto.nome;
+        //cin >> projeto.nome;
+        projeto.nome = "sexo";
         cout << "Insira a quantidade de horas semanais do Projeto" << endl;
-        cin >> projeto.horas;
+       // cin >> projeto.horas;
+       projeto.horas = 40;
         insereItemA(&funcionario.projetos,projeto);
         i++;
         cout << "Mais algum projeto?"<<endl;
-        cin >> dec;
+        //cin >> dec;
+        dec = 'n';
     }
-    criaListaVaziaE(&lista);
     insereListaPrimeiroE(&lista,&funcionario);
 }
 
 void incluirProjetos(int id){
     ApontadorFunc aux;
     aux = lista.primeiro->prox;
-    while(aux->prox != NULL){
+    while(aux != NULL){
         if(aux->item.id == id){
             cout << "Nome: " << aux->item.nome << endl;
             cout << "Endereço: " << aux->item.endereco << endl;
@@ -66,12 +74,40 @@ void incluirProjetos(int id){
             }
             return;
         }
+        aux = aux->prox;
+    }
+    cout << "Id não encontrado";
+}
+
+void excluirProjeto(int id){
+    ApontadorFunc aux;
+    aux = lista.primeiro->prox;
+    while(aux != NULL){
+        if(aux->item.id == id){
+            cout << "Nome: " << aux->item.nome << endl;
+            cout << "Endereço: " << aux->item.endereco << endl;
+            cout << "Número de Dependentes: " << aux->item.dependentes  << endl;
+            imprimeListaA(aux->item.projetos);
+            cout << "Deseja excluir algum projeto?(s/n)" << endl;
+            char dec;
+            cin >> dec;
+            if(dec == 's' || dec == 'S'){
+                cout << "Qual o id do Projeto que deseja excluir?" << endl;
+                int id;
+                cin >> id;
+                retiraItemA(&aux->item.projetos,id);
+                return;
+            }
+        }
+        aux = aux->prox;
     }
     cout << "Id não encontrado";
 }
 
 int main() {
+    criaListaVaziaE(&lista);
     incluirFuncionario();
-    imprimeItemE(&lista,1);
+    incluirProjetos(1);
+    excluirProjeto(1);
 
 }

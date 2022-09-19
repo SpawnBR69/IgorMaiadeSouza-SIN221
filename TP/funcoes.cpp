@@ -10,7 +10,7 @@ typedef int ApontadorProj;
 typedef struct Proj
 {
     int chave;
-    char nome[20];
+    string nome;
     int horas ;
 };
 
@@ -52,18 +52,12 @@ bool listaCriada = false;
 
 void criaListaVaziaA(ListaProj *lista)
 {
-    if (!listaCriada)
-    {
+    
         lista->tamanho = 0;
         lista->Primeiro = 0;
         lista->Ultimo = lista->Primeiro;
         cout << "Lista criada com sucesso!";
         //listaCriada = true;
-    }
-    else
-    {
-        cout << "Lista já existe!";
-    }
     Sleep(1500);
 }
 
@@ -88,7 +82,7 @@ int insereItemA(ListaProj *lista, Proj item)
     {
         return -1;
     }
-    lista->Item[lista->Ultimo].chave = item.chave;
+    lista->Item[lista->Ultimo] = item;
     lista->tamanho++;
     lista->Ultimo++;
     return 1; 
@@ -127,25 +121,18 @@ int pesquisaItemA(ListaProj *lista, int chave)
     return -1;
 }
 
-void retiraItemA(ApontadorProj p, ListaProj *lista, Proj *item)
+void retiraItemA(ListaProj *lista,int p)
 {
-    int Aux;
-
-    if (verificaListaVaziaA(lista) || p > lista->Ultimo)
-    {
-        cout << "Erro: Posição não existe na lista\n";
-        return;
+    int i=0;
+    for(i=0;i < MAXTAM; i++){
+        if(p == lista->Item[i].chave){
+            for(int j=i;j <=lista->Ultimo;j++){
+                lista->Item[j] = lista->Item[j+1];
+            }
+            lista->Ultimo--;
+            lista->tamanho--;
+        }
     }
-
-    *item = lista->Item[p];
-
-    for (Aux = p; Aux <= lista->Ultimo; Aux++)
-    {
-        lista->Item[Aux] = lista->Item[Aux + 1];
-    }
-
-    lista->Ultimo--;
-    lista->tamanho--;
 }
 
 void criaListaVaziaE(ListaFunc *lista)
@@ -155,14 +142,12 @@ void criaListaVaziaE(ListaFunc *lista)
         lista->primeiro = new ElementoFunc;
         lista->ultimo = lista->primeiro;
         lista->ultimo->prox = NULL;
-        cout << "Lista criada com sucesso!";
         listaCriada = true;
     }
     else
     {
         cout << "Lista já existe!";
     }
-    Sleep(1500);
 }
 
 bool verificaListaVaziaE(ListaFunc *lista)
