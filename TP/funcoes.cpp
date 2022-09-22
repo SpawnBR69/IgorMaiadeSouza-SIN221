@@ -100,7 +100,6 @@ void imprimeListaA(ListaProj lista)
             cout << "Horas: " << lista.Item[Aux].horas << endl;
         }
         cout << endl;
-        system("Pause");
     }
     else
     {
@@ -271,10 +270,12 @@ void imprimeItemE(ListaFunc *lista, int id)
             cout << "Endereço: " << aux->item.endereco << endl;
             cout << "Número de Dependentes: " << aux->item.dependentes << endl;
             imprimeListaA(aux->item.projetos);
-            break;
+            system("pause");
+            return;
         }
         aux = aux->prox;
     }
+    cout << "Funcionário não encontrado";
 }
 
 void removeListaPrimeiroE(ListaFunc *lista)

@@ -4,6 +4,7 @@
 using namespace std;
 
 ListaFunc lista;
+int teste = 1;
 
 void incluirFuncionario(){
     Func funcionario;
@@ -11,7 +12,8 @@ void incluirFuncionario(){
     int i=0;
     cout << "Insira o ID do funcionário"<< endl;
     //cin >> funcionario.id;
-    funcionario.id = 1;
+    funcionario.id = teste;
+    teste++;
     cout << "Insira o nome do funcionário"<< endl;
     //cin >> funcionario.nome;
     funcionario.nome = "Igor";
@@ -104,10 +106,26 @@ void excluirProjeto(int id){
     cout << "Id não encontrado";
 }
 
+void excluirFuncionario(){
+    ApontadorFunc aux;
+    aux = lista.primeiro->prox;
+    while(aux != NULL){
+        if(verificaListaVaziaA(&aux->item.projetos) == 1){
+            removeItemPorIdE(&lista,aux->item.id);
+        }
+        aux = aux->prox;
+    }
+}
+
+
+
 int main() {
     criaListaVaziaE(&lista);
     incluirFuncionario();
+    incluirFuncionario();
     incluirProjetos(1);
     excluirProjeto(1);
-
+    imprimeItemE(&lista,1);
+    excluirFuncionario();
+    imprimeListaE(lista);
 }
