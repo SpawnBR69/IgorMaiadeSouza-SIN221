@@ -11,39 +11,31 @@ void incluirFuncionario(){
     Func funcionario;
     char dec;
     int i=0;
+    system("cls");
     cout << "Insira o ID do funcionário"<< endl;
-    //cin >> funcionario.id;
-    funcionario.id = teste;
-    teste++;
+    cin >> funcionario.id;
     cout << "Insira o nome do funcionário"<< endl;
-    //cin >> funcionario.nome;
-    funcionario.nome = "Igor";
+    cin >> funcionario.nome;
     cout << "Insira o endereço do funcionário"<<endl;
-    //cin >> funcionario.endereco;
-    funcionario.endereco = "sex";
+    cin >> funcionario.endereco;
     cout << "Insira o numero de dependentes do funcionário"<<endl;
-    //cin >> funcionario.dependentes;
-    funcionario.dependentes = 3;
+    cin >> funcionario.dependentes;
     cout << "Está trabalhando em algum projeto no momento?(s/n)"<<endl;
-    //cin >> dec;
+    cin >> dec;
     dec = 's';
     criaListaVaziaA(&funcionario.projetos);
     while(dec == 's' || dec == 'S' && i < 5){
         Proj projeto;
         cout << "Insira o ID do projeto"<<endl;
-        //cin >> projeto.chave;
-        projeto.chave = 1;
+        cin >> projeto.chave;
         cout << "Insira o nome do projeto" << endl;
-        //cin >> projeto.nome;
-        projeto.nome = "sexo";
+        cin >> projeto.nome;
         cout << "Insira a quantidade de horas semanais do Projeto" << endl;
-       // cin >> projeto.horas;
-       projeto.horas = 40;
+        cin >> projeto.horas;
         insereItemA(&funcionario.projetos,projeto);
         i++;
         cout << "Mais algum projeto?"<<endl;
-        //cin >> dec;
-        dec = 'n';
+        cin >> dec;
     }
     insereListaPrimeiroE(&lista,&funcionario);
 }
@@ -51,6 +43,7 @@ void incluirFuncionario(){
 void incluirProjetos(int id){
     ApontadorFunc aux;
     aux = lista.primeiro->prox;
+    system("cls");
     while(aux != NULL){
         if(aux->item.id == id){
             cout << "Nome: " << aux->item.nome << endl;
@@ -80,11 +73,13 @@ void incluirProjetos(int id){
         aux = aux->prox;
     }
     cout << "Id não encontrado";
+    system("pause");
 }
 
 void excluirProjeto(int id){
     ApontadorFunc aux;
     aux = lista.primeiro->prox;
+    system("cls");
     while(aux != NULL){
         if(aux->item.id == id){
             cout << "Nome: " << aux->item.nome << endl;
@@ -105,6 +100,7 @@ void excluirProjeto(int id){
         aux = aux->prox;
     }
     cout << "Id não encontrado";
+    system("pause");
 }
 
 void excluirFuncionario(){
@@ -198,20 +194,83 @@ void imprimeContracheque(int id, ListaFunc *liil){
         }
         aux = aux->prox;
     }
-    
+    cout << "Id não encontrado!";
+    system("pause");
+}
+
+int imprimirMenu(){
+    system("cls");
+    cout << "_____________________________________" << endl;
+    cout << "|1. Cadastrar Funcionário           |" << endl;
+    cout << "|2. Cadastrar Projetos              |" << endl;
+    cout << "|3. Excluir Projetos                |" << endl;
+    cout << "|4. Pesquisar Funcionários          |" << endl;
+    cout << "|5. Excluir Funcionários s/ Projetos|" << endl;
+    cout << "|6. Imprimir Contra Cheque          |" << endl;
+    cout << "|7. Sair                            |" << endl;
+    cout << "_____________________________________" << endl;
+    cout << "Digite sua escolha: ";
+    int escolha;
+    cin >> escolha;
+    return escolha;
 }
 
 
 int main() {
     criaListaVaziaE(&lista);
-    //lerArquivo(&lista);
-    incluirFuncionario();
-    incluirFuncionario();
-    imprimeContracheque(1,&lista);
-    //salvaArquivo(&lista);
-    //incluirProjetos(1);
-    //excluirProjeto(1);
-    //imprimeItemE(&lista,1);
-    //excluirFuncionario();
-    //imprimeListaE(lista);
+    lerArquivo(&lista);
+    int escolha=0, id;
+    while(escolha!=7){
+        escolha = imprimirMenu();
+        switch (escolha){
+        case 1:
+            incluirFuncionario();
+            break;
+        case 2:
+            cout << "Qual o id do Funcionário? " << endl;
+            cin >> id;
+            incluirProjetos(id);
+            break;
+        case 3:
+            cout << "Qual o id do Funcionário? " << endl;
+            cin >> id;
+            excluirProjeto(id);
+            break;
+        case 4:
+            cout << "Qual o id do Funcionário? " << endl;
+            cin >> id;
+            imprimeItemE(&lista,id);
+
+            break;
+        case 5:
+            int esc;
+            while(esc != 1 && esc !=2){
+                cout << "Deseja excluir todos os funcionários sem projetos(1) ou algum especifico(2)?" << endl;
+                cin >> esc;
+                if(esc == 1){
+                    excluirFuncionario();
+                }else if(esc == 2){
+                    cout << "Qual o id do funcionário em questão?" << endl;
+                    cin >> id;
+                    removeItemPorIdE(&lista,id);
+                    system("pause");
+                }
+            }
+            break;
+        case 6:
+            cout << "Qual o id do Funcionário? " << endl;
+            cin >> id;
+            imprimeContracheque(id,&lista);
+            break;
+        default:
+            cout << "Deseja sair do programa?(s/n)" << endl;
+            char dec;
+            cin >> dec;
+            if(dec == 's'){
+                escolha = 7;
+            }
+            break;
+        }
+    }
+    salvaArquivo(&lista);
 }
