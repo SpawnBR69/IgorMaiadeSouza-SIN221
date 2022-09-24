@@ -1,6 +1,7 @@
 #include <iostream>
 #include "funcoes.hpp"
- 
+#include <fstream>
+
 using namespace std;
 
 ListaFunc lista;
@@ -117,15 +118,100 @@ void excluirFuncionario(){
     }
 }
 
+void lerArquivo(ListaFunc *liil){
+    ifstream entrada("funcionarios.bin");
+    if(entrada.is_open()){
+        char indicador;
+        entrada.get(indicador);
+        while(indicador == '$'){
+            Func funcionario;
+            entrada >> funcionario.id;
+            entrada.get();
+            entrada >> funcionario.nome;
+            entrada >> funcionario.endereco;
+            entrada >> funcionario.dependentes;
+            entrada.get();
+            ListaProj projetos;
+            criaListaVaziaA(&projetos);
+
+            entrada.get(indicador);
+            while(indicador == '?'){
+                Proj projeto;
+                entrada >> projeto.chave;
+                entrada.get();
+                entrada >> projeto.nome;
+                entrada.get();
+                entrada >> projeto.horas;
+                entrada.get(indicador);
+                insereItemA(&projetos,projeto);
+                entrada.get(indicador);
+            }
+            funcionario.projetos = projetos;
+            insereListaUltimoE(liil,&funcionario); 
+        }
+    }
+}
+
+void salvaArquivo(ListaFunc *liil){
+    ofstream saida("funcionarios.bin");
+    ApontadorFunc aux;
+    aux = liil->primeiro->prox;
+    while(aux != NULL){
+        saida << "$" << endl;
+        saida << aux->item.id << endl;
+        saida << aux->item.nome << endl;
+        saida << aux->item.endereco << endl;
+        saida << aux->item.dependentes << endl;
+        for(int i=0;i<aux->item.projetos.tamanho;i++){
+            saida << "?" << endl;
+            saida << aux->item.projetos.Item[i].chave << endl;
+            saida << aux->item.projetos.Item[i].nome << endl;
+            saida << aux->item.projetos.Item[i].horas << endl;
+        }
+        aux = aux->prox;
+    }
+}
+
+void imprimeContracheque(int id, ListaFunc *liil){
+    ApontadorFunc aux;
+    float soma=0, inss,ir;
+    aux = liil->primeiro->prox;
+    while (aux != NULL)
+    {
+        if(aux->item.id == id){
+            cout << "Nome: " << aux->item.nome << endl;
+            cout << "Endereço: " << aux->item.endereco << endl;
+            cout << "Número de Dependentes: " << aux->item.dependentes  << endl;
+            cout << "Sálario bruto: ";
+            for(int i=0;i<aux->item.projetos.tamanho;i++){
+                soma = soma + aux->item.projetos.Item[i].horas;
+            }
+            cout << aux->item.dependentes * 35 + soma * 45 << ",00 R$" << endl;
+            cout << "Desconto do INSS: ";
+            inss = (aux->item.dependentes * 35 + soma * 45) * 0.085;
+            cout << inss << " R$" << endl;
+            cout << "Desconto do Imposto de Renda: ";
+            ir = (aux->item.dependentes * 35 + soma * 45) * 0.15;
+            cout << ir << "R$" << endl;
+            cout << "Sálario Liquido: " << (aux->item.dependentes * 35 + soma * 45) - inss - ir << " R$"<< endl;
+            return;
+        }
+        aux = aux->prox;
+    }
+    
+}
 
 
 int main() {
     criaListaVaziaE(&lista);
+    //lerArquivo(&lista);
     incluirFuncionario();
     incluirFuncionario();
-    incluirProjetos(1);
-    excluirProjeto(1);
-    imprimeItemE(&lista,1);
-    excluirFuncionario();
-    imprimeListaE(lista);
+    imprimeContracheque(1,&lista);
+    //salvaArquivo(&lista);
+    //incluirProjetos(1);
+    //excluirProjeto(1);
+    //imprimeItemE(&lista,1);
+    //excluirFuncionario();
+    //imprimeListaE(lista);
 }
