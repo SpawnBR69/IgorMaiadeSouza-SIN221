@@ -4,6 +4,7 @@
 #include "funcoes.cpp"
 
 typedef struct Func;
+typedef struct Proj;
 typedef struct ElementoFunc *ApontadorFunc;
 typedef struct ElementoFunc;
 typedef struct ListaFunc;

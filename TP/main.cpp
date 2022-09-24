@@ -261,6 +261,7 @@ int main() {
             cout << "Qual o id do Funcionário? " << endl;
             cin >> id;
             imprimeContracheque(id,&lista);
+            system("pause");
             break;
         default:
             cout << "Deseja sair do programa?(s/n)" << endl;
