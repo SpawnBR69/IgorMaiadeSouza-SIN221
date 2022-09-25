@@ -156,12 +156,12 @@ void lerArquivo(ListaFunc *liil){
 }
 
 void desalocaLista(ListaFunc *lista) {
-    ApontadorFunc aux, excluido;
+    ApontadorFunc aux, del;
     aux = lista->primeiro->prox;
     while(aux != NULL) {
-        excluido = aux;
+     del = aux;
         aux = aux->prox;
-        delete excluido;
+        delete del;
     }
     delete aux;
 }
