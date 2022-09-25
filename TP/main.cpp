@@ -13,8 +13,8 @@ void incluirFuncionario(){
     char dec;
     int i=0;
     system("cls");
+    idFunc += 1;
     funcionario.id = idFunc;
-    idFunc++;
     cout << "Insira o nome do funcionário"<< endl;
     cin >> funcionario.nome;
     cout << "Insira o endereço do funcionário"<<endl;
@@ -26,8 +26,8 @@ void incluirFuncionario(){
     criaListaVaziaA(&funcionario.projetos);
     while((dec == 's' || dec == 'S') && i < 5){
         Proj projeto;
+        idProjeto += 1;
         projeto.chave = idProjeto;
-        idProjeto++;
         cout << "Insira o nome do projeto" << endl;
         cin >> projeto.nome;
         cout << "Insira a quantidade de horas semanais do Projeto" << endl;
@@ -226,6 +226,8 @@ int imprimirMenu(){
 int main() {
     criaListaVaziaE(&lista);
     lerArquivo(&lista);
+    cout << idFunc;
+    system("pause");
     int escolha=0, id;
     while(escolha!=7){
         escolha = imprimirMenu();
