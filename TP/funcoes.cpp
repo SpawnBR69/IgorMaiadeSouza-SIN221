@@ -161,7 +161,7 @@ int tamanhoListaE(ListaFunc *lista)
 void atualizaUltimo(ListaFunc *lista)
 {
     ApontadorFunc aux;
-    aux = lista->primeiro->prox;
+    aux = lista->primeiro;
     while (aux->prox != NULL)
     {
         aux = aux->prox;

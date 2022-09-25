@@ -6,14 +6,15 @@ using namespace std;
 
 ListaFunc lista;
 int teste = 1;
+int idProjeto = 0, idFunc = 0;
 
 void incluirFuncionario(){
     Func funcionario;
     char dec;
     int i=0;
     system("cls");
-    cout << "Insira o ID do funcionário"<< endl;
-    cin >> funcionario.id;
+    funcionario.id = idFunc;
+    idFunc++;
     cout << "Insira o nome do funcionário"<< endl;
     cin >> funcionario.nome;
     cout << "Insira o endereço do funcionário"<<endl;
@@ -25,8 +26,8 @@ void incluirFuncionario(){
     criaListaVaziaA(&funcionario.projetos);
     while((dec == 's' || dec == 'S') && i < 5){
         Proj projeto;
-        cout << "Insira o ID do projeto"<<endl;
-        cin >> projeto.chave;
+        projeto.chave = idProjeto;
+        idProjeto++;
         cout << "Insira o nome do projeto" << endl;
         cin >> projeto.nome;
         cout << "Insira a quantidade de horas semanais do Projeto" << endl;
@@ -58,8 +59,8 @@ void incluirProjetos(int id){
                     cout << "Funcionário já trabalha no número máximo de projetos!";
                     return;
                 }
-                cout << "Insira o ID do projeto"<<endl;
-                cin >> projeto.chave;
+                projeto.chave = idProjeto;
+                idProjeto++;
                 cout << "Insira o nome do projeto" << endl;
                 cin >> projeto.nome;
                 cout << "Insira a quantidade de horas semanais do Projeto" << endl;
@@ -129,6 +130,10 @@ void lerArquivo(ListaFunc *liil){
             ListaProj projetos;
             criaListaVaziaA(&projetos);
 
+            if(funcionario.id > idFunc){
+                idFunc = funcionario.id;
+            }
+
             entrada.get(indicador);
             while(indicador == '?'){
                 Proj projeto;
@@ -139,6 +144,9 @@ void lerArquivo(ListaFunc *liil){
                 entrada >> projeto.horas;
                 entrada.get(indicador);
                 insereItemA(&projetos,projeto);
+                if(projeto.chave > idProjeto){
+                    idProjeto = projeto.chave;
+                }
                 entrada.get(indicador);
             }
             funcionario.projetos = projetos;
