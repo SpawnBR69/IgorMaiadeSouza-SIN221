@@ -155,6 +155,17 @@ void lerArquivo(ListaFunc *liil){
     }
 }
 
+void desalocaLista(ListaFunc *lista) {
+    ApontadorFunc aux, excluido;
+    aux = lista->primeiro->prox;
+    while(aux != NULL) {
+        excluido = aux;
+        aux = aux->prox;
+        delete excluido;
+    }
+    delete aux;
+}
+
 void salvaArquivo(ListaFunc *liil){
     ofstream saida("funcionarios.bin");
     ApontadorFunc aux;
@@ -285,4 +296,5 @@ int main() {
         }
     }
     salvaArquivo(&lista);
+    desalocaLista(&lista);
 }
