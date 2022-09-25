@@ -22,9 +22,8 @@ void incluirFuncionario(){
     cin >> funcionario.dependentes;
     cout << "Está trabalhando em algum projeto no momento?(s/n)"<<endl;
     cin >> dec;
-    dec = 's';
     criaListaVaziaA(&funcionario.projetos);
-    while(dec == 's' || dec == 'S' && i < 5){
+    while((dec == 's' || dec == 'S') && i < 5){
         Proj projeto;
         cout << "Insira o ID do projeto"<<endl;
         cin >> projeto.chave;
@@ -244,6 +243,7 @@ int main() {
             break;
         case 5:
             int esc;
+            esc = 0;
             while(esc != 1 && esc !=2){
                 cout << "Deseja excluir todos os funcionários sem projetos(1) ou algum especifico(2)?" << endl;
                 cin >> esc;
@@ -253,6 +253,7 @@ int main() {
                     cout << "Qual o id do funcionário em questão?" << endl;
                     cin >> id;
                     removeItemPorIdE(&lista,id);
+                    cout << "penis";
                     system("pause");
                 }
             }
