@@ -308,6 +308,7 @@ void removeListaUltimoE(ListaFunc *lista)
     lista->ultimo = atual;
     delete aux;
     lista->tamanho--;
+    atualizaUltimo(lista);
 }
 
 void removeItemPorIdE(ListaFunc *lista, int id)
@@ -334,4 +335,5 @@ void removeItemPorIdE(ListaFunc *lista, int id)
     anterior->prox = aux->prox;
     delete aux;
     lista->tamanho--;
+    atualizaUltimo(lista);
 }
