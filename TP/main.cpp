@@ -274,7 +274,6 @@ int main() {
                     cout << "Qual o id do funcionário em questão?" << endl;
                     cin >> id;
                     removeItemPorIdE(&lista,id);
-                    cout << "penis";
                     system("pause");
                 }
             }
