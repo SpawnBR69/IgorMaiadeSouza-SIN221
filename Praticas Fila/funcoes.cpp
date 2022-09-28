@@ -5,12 +5,14 @@ using namespace std;
 #define MAXTAM 5
 
 typedef struct item{
-    int id;
+    string nome;
+    string telefone;
+    string solicitacao;
 }item;
 
 typedef struct fila{
     item itens[MAXTAM+1];
-    int frente, trás,tamanho;
+    int frente, tras, tamanho;
 }fila;
 
 void fazFilaVazia(fila *fila){
@@ -27,7 +29,7 @@ bool verificaFilaVazia(fila *fila){
 void enfileira(fila *fila, item item){
     fila->itens[fila->tamanho] = item;
     fila->tamanho++;
-    fila->trás = fila->tamanho;
+    fila->tras = fila->tamanho;
 }
 
 item desinfileira(fila *fila){
@@ -36,4 +38,10 @@ item desinfileira(fila *fila){
         fila->itens[i] = fila->itens[i+1];
     }
     return retorno;
+}
+
+void imprimeFila(fila fila){
+    for(int i = 0; i<fila.tamanho;i++){
+        cout << fila.itens[i].nome << endl;
+    }
 }
