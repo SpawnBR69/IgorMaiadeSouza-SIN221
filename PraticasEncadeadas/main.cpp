@@ -2,6 +2,20 @@
 #include "funcoeslista.cpp"
  
 using namespace std;
+
+void inverteLista(TipoLista *lista){
+    if(verificaListaVazia(*lista)){
+        return;
+    }
+    insereListaPrimeiro(lista,&lista->ultimo->item);
+    int aux = lista->ultimo->item.id;
+    removeListaUltimo(lista);
+    for(int i = 0; i< lista->tamanho - 1; i++){
+        insereListaAposElemento(lista, &lista->ultimo->item,aux);
+        aux = lista->ultimo->item.id;
+        removeListaUltimo(lista);
+    }
+}
  
 int main() {
     TipoItem item,item1,item2,item3,item4;
@@ -16,13 +30,17 @@ int main() {
     insereListaUltimo(&lista, &item1);
     insereListaUltimo(&lista, &item2);
     insereListaUltimo(&lista, &item3);
-    insereListaAposElemento(&lista, &item4, 3);
-    removeListaPrimeiro(&lista);
+    insereListaUltimo(&lista, &item4);
     imprimeLista(&lista);
-    if(verificaListaVazia(lista)){
+    inverteLista(&lista);
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    imprimeLista(&lista);
+    /*if(verificaListaVazia(lista)){
         cout << "sheesh";
     }else{
         cout << "poggers";
-    }
+    }*/
     
 }
