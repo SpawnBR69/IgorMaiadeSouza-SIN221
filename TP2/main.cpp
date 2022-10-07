@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "funcoes.hpp"
  
 using namespace std;
@@ -7,31 +8,62 @@ tipoPilha pedidos;
 int codigos = 1;
 produtos prod[7];
 
+void lerArquivo(){
+    FILE* file = fopen("lanchonete.bin", "r");
+    tipoItem pedido;
+    if(file != NULL) {
+        while(fread(&pedido, sizeof(tipoItem), 1, file)) {
+            if(pedido.codigo > codigos) {
+                codigos = pedido.codigo;
+            }
+            empilha(&pedidos, pedido);
+        }
+    }
+}
+
+void salvaArquivo(){
+    FILE* file = fopen("lanchonete.bin","w");
+    tipoItem pedido;
+    while(pedidos.tamanho != 0) {
+        pedido = desempilha(&pedidos);
+        fwrite(&pedido, sizeof(tipoItem), 1, file);
+    }
+}
+
 void arrumaPilha(){
-    tipoPilha aux,aux1;
+    tipoPilha aux,aux1,aux2;
     criaPilhaVazia(&aux);
     criaPilhaVazia(&aux1);
+    criaPilhaVazia(&aux2);
     int tamanhos = pedidos.tamanho;
-    for(int i=0;i<pedidos.tamanho;i++){
+    for(int i=0;i<tamanhos;i++){
         empilha(&aux,desempilha(&pedidos));
     }
-    float sus = aux.itens[0].distancia;
+    float sus;
     float amo = aux.tamanho;
-    for(int k=0;k<amo;k++){
+    while(amo != 0){
+        sus = 0;
         for(int i=0;i<aux.tamanho;i++){
             if(sus < aux.itens[i].distancia)
                 sus = aux.itens[i].distancia;
         }
-        for(int j = 0; j<amo;j++){
+        cout  << endl << sus << endl;
+        system("pause");
+        for(int j = 0; j<aux.tamanho;j++){
             if(aux.itens[j].distancia == sus){
                 empilha(&aux1,aux.itens[j]);
-                aux.itens[j].distancia = 200000000000;
+                aux.itens[j].distancia = 1;
+                amo--;
+                cout << endl << amo << endl;
             }
         }
     }
     amo = aux1.tamanho;
     for(int i=0;i<amo;i++){
-        empilha(&pedidos,desempilha(&aux1));
+        empilha(&aux2,desempilha(&aux1));
+    }
+    for(int i=0;i<amo;i++){
+        empilha(&pedidos,desempilha(&aux2));
     }
 }
 
@@ -52,8 +84,7 @@ void incluiPedidos(){
         i++;
     }
     cout << "Qual é a distância a ser percorrida? (em metros)";
-    //cin >> item.distancia;
-    item.distancia = 1500 + codigos * 10;
+    cin >> item.distancia;
     item.valor_pedido = 0;
     for(i=0;i<item.tamanho;i++){
         item.valor_pedido = item.valor_pedido+prod[item.produtos[i]].preco;
@@ -102,12 +133,14 @@ int main() {
         case 4:
             cout << "Pedido " << desempilha(&pedidos).codigo << " despachado!";
             break;
-        case 5:
+        default:
             cout << "Deseja mesmo fechar o programa?(s/n)";
             char dec;
             cin >> dec;
             if(dec == 's'){
                 opcao = 5;
+            }else{
+                opcao = 6;
             }
             break;
         }

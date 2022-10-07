@@ -79,8 +79,7 @@ tipoItem desempilha(tipoPilha* pilha){
 }
 
 void imprimePilha(tipoPilha pilha){
-    int amo = pilha.tamanho;
-    for(int i = 0; i<amo; i++){
+    for(int i = pilha.tamanho-1; i>=0 ; i--){
         cout << "Codigo do Pedido: " << pilha.itens[i].codigo << endl;
         /*if(pilha.itens[i].tamanho > 0){
             cout << "Produtos: ";
