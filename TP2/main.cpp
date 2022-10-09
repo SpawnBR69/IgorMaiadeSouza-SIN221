@@ -21,11 +21,11 @@ void lerArquivo(tipoPilha* pilha){
     }
 }
 
-void salvaArquivo(){
+void salvaArquivo(tipoPilha* pilha){
     FILE* file = fopen("lanchonete.bin","w");
     tipoItem pedido;
     while(pedidos.tamanho != 0) {
-        pedido = desempilha(&pedidos);
+        pedido = desempilha(pilha);
         fwrite(&pedido, sizeof(tipoItem), 1, file);
     }
 }
@@ -75,6 +75,8 @@ void incluiPedidos(){
         //cin >> item.produtos[i];
         item.produtos[i] = 0;
         item.tamanho++;
+        item.produtos[i+1] = 1;
+        item.tamanho++;
         cout << "Deseja cadastrar mais produtos?";
         //cin >> dec;
         dec = 'n';
@@ -102,10 +104,10 @@ void imprimeMenu(){
 }
  
 int main() {
-    geraCardapio(prod);
-    int opcao = 0;
     criaPilhaVazia(&pedidos);
     lerArquivo(&pedidos);
+    geraCardapio(prod);
+    int opcao = 0;
     while(opcao != 6){
         imprimeMenu(); 
         cin >> opcao;
@@ -171,5 +173,5 @@ int main() {
             break;
         }
     }
-    salvaArquivo();
+    salvaArquivo(&pedidos);
 }

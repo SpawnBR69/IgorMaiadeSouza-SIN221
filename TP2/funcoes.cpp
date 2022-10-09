@@ -11,11 +11,11 @@ typedef struct produtos{
 }produtos;
  
 typedef struct tipoItem{
-    int codigo ;
-    int produtos [MAXPEDIDOS];
+    int codigo;
+    int produtos[MAXPEDIDOS];
     int tamanho=0;
-    float valor_pedido ;
-    float distancia ;
+    float valor_pedido;
+    float distancia;
 }tipoItem;
 
 typedef struct tipoPilha{
@@ -25,7 +25,7 @@ typedef struct tipoPilha{
 
 void geraCardapio(produtos prod[]){
     for(int i = 0; i<7;i++){
-        prod[i].codigo == i;
+        prod[i].codigo = i;
     }
     prod[0].nome = "Coxinha";
     prod[0].preco = 3.5;
@@ -72,8 +72,8 @@ bool empilha(tipoPilha* pilha, tipoItem item){
 
 tipoItem desempilha(tipoPilha* pilha){
     tipoItem item;
-    item = pilha->itens[pilha->tamanho -1];
-    pilha->itens[pilha->tamanho] = pilha->itens[pilha->tamanho + 1];
+    item = pilha->itens[pilha->tamanho - 1];
+    pilha->itens[pilha->tamanho - 1] = pilha->itens[pilha->tamanho];
     pilha->tamanho--;
     return item;
 }
