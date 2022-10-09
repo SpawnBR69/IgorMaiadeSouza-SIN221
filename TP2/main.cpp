@@ -47,14 +47,11 @@ void arrumaPilha(){
             if(sus < aux.itens[i].distancia)
                 sus = aux.itens[i].distancia;
         }
-        cout  << endl << sus << endl;
-        system("pause");
         for(int j = 0; j<aux.tamanho;j++){
             if(aux.itens[j].distancia == sus){
                 empilha(&aux1,aux.itens[j]);
                 aux.itens[j].distancia = 1;
                 amo--;
-                cout << endl << amo << endl;
             }
         }
     }
@@ -99,25 +96,31 @@ void imprimeMenu(){
     cout << "|2. Listar Pedidos           |" << endl;
     cout << "|3. Imprimir Cardapio        |" << endl;
     cout << "|4. Despachar Pedido         |" << endl;
-    cout << "|5. Sair                     |" << endl;
+    cout << "|5. Colsultar Pedido         |" << endl;
+    cout << "|6. Sair                     |" << endl;
     cout << "______________________________" << endl;
 }
  
 int main() {
     geraCardapio(prod);
+    lerArquivo();
     int opcao = 0;
     criaPilhaVazia(&pedidos);
-    while(opcao != 5){
+    while(opcao != 6){
         imprimeMenu();
         
         cin >> opcao;
         switch (opcao){
         case 1:
-            incluiPedidos();
+            if(verificaPilhaCheia(pedidos)){
+                cout << "FILA DE PEDIDOS CHEIA!";
+            }else{
+                incluiPedidos();
+            }
             break;
         case 2:
             arrumaPilha();
-            imprimePilha(pedidos);
+            imprimePilha(pedidos,prod);
             system("pause");
             break;
         case 3:
@@ -131,18 +134,43 @@ int main() {
             system("pause");
             break;
         case 4:
-            cout << "Pedido " << desempilha(&pedidos).codigo << " despachado!";
+            cout << "Pedido " << desempilha(&pedidos).codigo << " despachado!" << endl;
+            system("pause");
+            break;
+        case 5:
+            int opcao;
+            cout << "Qual id você deseja consultar?";
+            cin >> opcao;
+            for(int i = 0; i<pedidos.tamanho; i++){
+                if(pedidos.itens[i].codigo == opcao){
+                    system("cls");
+                    cout << "Codigo do Pedido: " << pedidos.itens[i].codigo << endl;
+                    if (pedidos.itens[i].tamanho > 0){
+                        cout << "Produtos: ";
+                        int gus = pedidos.itens[i].tamanho;
+                        for (int j = 0; j < gus; j++)
+                        {
+                            cout << prod[pedidos.itens[i].produtos[j]].nome << " ";
+                        }
+                        cout << endl;
+                    }
+                    cout << "Valor do Pedido: " << pedidos.itens[i].valor_pedido << endl;
+                    cout << "Distancia do Pedido: " << pedidos.itens[i].distancia << endl;
+                    system("pause");
+                }
+            }
             break;
         default:
             cout << "Deseja mesmo fechar o programa?(s/n)";
             char dec;
             cin >> dec;
             if(dec == 's'){
-                opcao = 5;
-            }else{
                 opcao = 6;
+            }else{
+                opcao = 7;
             }
             break;
         }
     }
+    salvaArquivo();
 }

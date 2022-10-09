@@ -78,17 +78,17 @@ tipoItem desempilha(tipoPilha* pilha){
     return item;
 }
 
-void imprimePilha(tipoPilha pilha){
+void imprimePilha(tipoPilha pilha, produtos prod[]){
     for(int i = pilha.tamanho-1; i>=0 ; i--){
         cout << "Codigo do Pedido: " << pilha.itens[i].codigo << endl;
-        /*if(pilha.itens[i].tamanho > 0){
+        if(pilha.itens[i].tamanho > 0){
             cout << "Produtos: ";
-            int gus = pilha.itens[i].tamanho + 1;
-            for(int j = 0; j<gus;i++){
+            int gus = pilha.itens[i].tamanho;
+            for(int j = 0; j<gus;j++){
                 cout << prod[pilha.itens[i].produtos[j]].nome  << " ";
             }
             cout << endl;
-        }*/
+        }
         cout << "Valor do Pedido: " << pilha.itens[i].valor_pedido << endl;
         cout << "Distancia do Pedido: " << pilha.itens[i].distancia << endl;
     }
