@@ -8,7 +8,7 @@ tipoPilha pedidos;
 int codigos = 1;
 produtos prod[7];
 
-void lerArquivo(){
+void lerArquivo(tipoPilha* pilha){
     FILE* file = fopen("lanchonete.bin", "r");
     tipoItem pedido;
     if(file != NULL) {
@@ -16,7 +16,7 @@ void lerArquivo(){
             if(pedido.codigo > codigos) {
                 codigos = pedido.codigo;
             }
-            empilha(&pedidos, pedido);
+            empilha(pilha, pedido);
         }
     }
 }
@@ -103,12 +103,11 @@ void imprimeMenu(){
  
 int main() {
     geraCardapio(prod);
-    lerArquivo();
     int opcao = 0;
     criaPilhaVazia(&pedidos);
+    lerArquivo(&pedidos);
     while(opcao != 6){
-        imprimeMenu();
-        
+        imprimeMenu(); 
         cin >> opcao;
         switch (opcao){
         case 1:
