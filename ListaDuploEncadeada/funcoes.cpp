@@ -53,6 +53,7 @@ void insereListaPrimeiro(TipoLista* lista, TipoItem item){
     novo->ant = lista->primeiro;
     novo->prox = aux;
     aux->ant = novo;
+    lista->tamanho++;
 }
 
 void insereListaUltimo(TipoLista* lista, TipoItem item){
@@ -61,6 +62,7 @@ void insereListaUltimo(TipoLista* lista, TipoItem item){
     lista->ultimo = lista->ultimo->prox;
     lista->ultimo->item = item;
     lista->ultimo->prox = NULL;
+    lista->tamanho++;
 }
 
 void removeUltimo(TipoLista* lista){
@@ -69,6 +71,15 @@ void removeUltimo(TipoLista* lista){
     lista->ultimo = lista->ultimo->ant;
     lista->ultimo->prox = NULL;
     delete aux;
+    lista->tamanho--;
+}
+
+void removePrimeiro(TipoLista* lista){
+    Apontador aux = lista->primeiro->prox;
+    lista->primeiro->prox = lista->primeiro->prox->prox;
+    lista->primeiro->prox->ant = NULL;
+    delete aux;
+    lista->tamanho--;
 }
 
 void removeItemPorId(TipoLista* lista,int id){
@@ -87,12 +98,12 @@ void removeItemPorId(TipoLista* lista,int id){
         aux = aux->prox;
     }
     delete aux;
+    lista->tamanho--;
 }
 
 void insereItemPorId(TipoLista* lista, int id, TipoItem item){
     Apontador aux =  lista->primeiro->prox,novo,aux1;
     while(aux != NULL){
-        
         if(id == aux->item.id){
             if(aux == lista->ultimo){
                 novo = new Elemento;
@@ -107,5 +118,26 @@ void insereItemPorId(TipoLista* lista, int id, TipoItem item){
                 novo->prox->ant = novo;
             }
         }
+        aux = aux->prox;
+    }
+    lista->tamanho++;
+}
+
+void pesquisaItem(TipoLista* lista, int id){
+    Apontador aux = lista->primeiro->prox;
+    while (aux != NULL){
+        if(aux->item.id == id){
+            cout << aux->item.id << endl;
+            break;
+        }
+        aux = aux->prox;
+    }
+}
+
+void imprimeLista(TipoLista lista){
+    Apontador aux = lista.primeiro->prox;
+    while(aux != NULL){
+        cout << aux->item.id << endl;
+        aux = aux->prox;
     }
 }

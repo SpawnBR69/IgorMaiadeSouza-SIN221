@@ -25,5 +25,8 @@ int main() {
     enfileiraPrioridade(&fila,item);
     item.valor = 40985;
     enfileiraPrioridade(&fila,item);
+    item.valor=11111;
+    item.prioridade = 5;
+    enfileira(&fila,item);
     imprimeFila(fila);
 }

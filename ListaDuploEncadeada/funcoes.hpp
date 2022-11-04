@@ -10,6 +10,8 @@ void insereListaPrimeiro(TipoLista* lista, TipoItem item);
 void insereListaUltimo(TipoLista* lista, TipoItem item);
 void removeUltimo(TipoLista* lista);
 void removeItemPorId(TipoLista* lista,int id);
+void removePrimeiro(TipoLista* lista);
+void imprimeLista(TipoLista lista);
 
 
 #endif
