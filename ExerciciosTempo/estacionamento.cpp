@@ -29,7 +29,7 @@ void sai(TipoLista* lista, string id){
         }else if(tempo >=30 && tempo < 60){
             cout << "Total a pagar 8.00";
         }else if(tempo >= 60){
-            int preco = 800 + ((tempo-60) * 1);
+            float preco = 800 + ((tempo-60) * 10);
             cout << "Total a pagar " << preco/100;
         }
         removeItemPorId(lista, id);
