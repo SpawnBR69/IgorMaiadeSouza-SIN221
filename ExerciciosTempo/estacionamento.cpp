@@ -33,13 +33,35 @@ void sai(TipoLista* lista, string id){
             cout << "Total a pagar " << preco/100;
         }
         removeItemPorId(lista, id);
+        return;
     }
 }
 
 int main() {
     TipoLista lista;
     CriaListaVazia(&lista);
-    entra(&lista);
-    Sleep(62000);
-    sai(&lista,"HMO-6969");
+    int num = 0;
+    string id;
+    char dec;
+    while(num != 4){
+        switch (num){
+        case 1:
+            entra(&lista);
+            break;
+        case 2:
+            imprimeLista(&lista);
+            break;
+        case 3:
+            cout << "Qual carro está saindo?" << endl;
+            cin >> id;
+            sai(&lista,id);
+        default:
+            cout << "Deseja mesmo sair?(s/n)";
+            cin >> dec;
+            if(dec == 's'){
+                num = 4;
+            }
+            break;
+        }
+    }
 }
