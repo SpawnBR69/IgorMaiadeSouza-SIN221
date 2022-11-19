@@ -19,5 +19,9 @@ void verificaDisponibilidade(upa* upa);
 void imprimePerguntas(int i);
 void cadastro(upa* upa);
 void triagemSemCadastro(upa* upa);
+void cadastraUpa(upa* upa);
+void imprimeAtendimentos(upa* upa);
+void liberaMedico(upa* upa, string nome);
+void imprimeMedicos(upa upa);
 
 #endif

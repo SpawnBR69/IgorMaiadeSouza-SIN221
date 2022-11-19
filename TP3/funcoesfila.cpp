@@ -39,7 +39,7 @@ typedef struct upa{
     tipoFila fila;
 }upa;
 
-string perguntas[18] = {"Comprometimento da via aérea?","Respiração ineficaz?","Choque?","Não responde a estímulos?","Em convulsão?","Dor Severa?","Grande hemorragia incontrolável?","Alteração do estado de consciência?","Temperatura maior ou igual a 39°C?","Trauma craniano severo?","Dor moderada?","Pequena hemorragia incontrolável?","Vômito persistente?","Temperatura entre 38°C e 39°C?","Idoso ou grávida?","Dor leve?","Náuseas?","Temperatura entre 37°C e 38°C?"};
+string perguntas[18] = {"Comprometimento da via aérea","Respiração ineficaz","Choque","Não responde a estímulos","Em convulsão","Dor Severa","Grande hemorragia incontrolável","Alteração do estado de consciência","Temperatura maior ou igual a 39°C","Trauma craniano severo","Dor moderada","Pequena hemorragia incontrolável","Vômito persistente","Temperatura entre 38°C e 39°C","Idoso ou grávida","Dor leve","Náuseas","Temperatura entre 37°C e 38°C"};
 
 void criaFilaVazia(tipoFila *fila){
     fila->inicio = NULL;
@@ -78,6 +78,9 @@ void enfileiraPrioridade(tipoFila *fila, paciente item){
         return;
     }
     while(i){
+        if(aux == NULL){
+            break;
+        }
         if(aux->item.prioridade <= item.prioridade){
             ant = aux;
             aux = aux->prox;
@@ -138,23 +141,23 @@ void verificaDisponibilidade(upa* upa){
         if(upa->medicos[i].disponibilidade){
             continue;
         }else if(upa->medicos[i].paciente.prioridade == 0){
-            if(((upa->medicos[i].tempo - clock())/CLOCKS_PER_SEC)/60 >= 60){
+            if(((clock() - upa->medicos[i].tempo)/CLOCKS_PER_SEC)/60 >= 60){
                 upa->medicos[i].disponibilidade = true;
             }
         }else if(upa->medicos[i].paciente.prioridade == 1){
-            if(((upa->medicos[i].tempo - clock())/CLOCKS_PER_SEC)/60 >= 25){
+            if(((clock() - upa->medicos[i].tempo)/CLOCKS_PER_SEC)/60 >= 25){
                 upa->medicos[i].disponibilidade = true;
             }
         }else if(upa->medicos[i].paciente.prioridade == 2){
-            if(((upa->medicos[i].tempo - clock())/CLOCKS_PER_SEC)/60 >= 20){
+            if(((clock() - upa->medicos[i].tempo)/CLOCKS_PER_SEC)/60 >= 20){
                 upa->medicos[i].disponibilidade = true;
             }
         }else if(upa->medicos[i].paciente.prioridade == 3){
-            if(((upa->medicos[i].tempo - clock())/CLOCKS_PER_SEC)/60 >= 12){
+            if(((clock() - upa->medicos[i].tempo)/CLOCKS_PER_SEC)/60 >= 12){
                 upa->medicos[i].disponibilidade = true;
             }
         }else if(upa->medicos[i].paciente.prioridade == 4){
-            if(((upa->medicos[i].tempo - clock())/CLOCKS_PER_SEC)/60 >= 8){
+            if(((clock() - upa->medicos[i].tempo)/CLOCKS_PER_SEC)/60 >= 8){
                 upa->medicos[i].disponibilidade = true;
             }
         }
@@ -162,7 +165,7 @@ void verificaDisponibilidade(upa* upa){
 }
 
 void imprimePerguntas(int i){
-    cout << perguntas[i] << endl;
+    cout << perguntas[i] << "?" << endl;
 }
 
 void cadastro(upa* upa){
@@ -170,6 +173,7 @@ void cadastro(upa* upa){
     char dec = 's';
     do{
         paciente pa;
+        system("cls");
         cout << "Digite o nome do paciente: " << endl;
         cin >> pa.nome;
         system("cls");
@@ -214,12 +218,6 @@ void cadastro(upa* upa){
         }if(verificaFilaVazia(upa->fila)){
             break;
         }
-        cout << endl << endl << endl << "PONTO";
-        cout << endl << endl << upa->fila.tamanho;
-        if(upa->fila.inicio == NULL){
-            cout << endl << endl << "2PONTO" << endl << endl;
-        }
-        system("pause");
         upa->medicos[i].paciente = desenfileira(&upa->fila);
         upa->medicos[i].disponibilidade = false;
         upa->medicos[i].tempo = clock();
@@ -280,4 +278,63 @@ void cadastraUpa(upa* upa){
     upa->medicos[4].nome = "Henrique";
     upa->medicos[4].especialidade = "Oftalmo";
     upa->medicos[4].crm = "213";
+}
+
+void imprimeAtendimentos(upa* upa){
+    verificaDisponibilidade(upa);
+    int cont = 0;
+    cout << "Atendimentos ocorrendo no momento: ";
+    for(int i = 0; i < 5; i++){
+        if(upa->medicos[i].disponibilidade){
+            continue;
+        }
+        cout << "Médico: " << upa->medicos[i].nome << endl;
+        cout << "Paciente: " << upa->medicos[i].paciente.nome << endl;
+        cout << "Nuâncias: " << endl;
+        int cont2 = 0;
+        for(int j = 0; j < 18; j++){
+            if(upa->medicos[i].paciente.respostas[j] == 's'){
+                cout << perguntas[j] << endl;
+                cont2++;
+            }
+        }
+        if(cont2 == 0){
+            cout << "Nenhuma.";
+        }
+        cont++;
+        cout << endl << endl;
+    }
+    if(cont == 0){
+        cout << "Nenhum.";
+    }
+    system("pause");
+}
+
+void liberaMedico(upa* upa, string nome){
+    for(int i = 0; i < 5; i++){
+        if(upa->medicos[i].nome == nome){
+            upa->medicos[i].disponibilidade = true;
+            system("cls");
+            cout << "Médico liberado!";
+            return;
+        }
+    }
+    cout << "Médico não encontrado!";
+}
+
+void imprimeMedicos(upa upa){
+    system("cls");
+    for(int i = 0; i < 5; i++){
+        cout << "Nome: " << upa.medicos[i].nome << endl;
+        cout << "Especiealidade: " << upa.medicos[i].especialidade << endl;
+        cout << "CRM: " << upa.medicos[i].crm << endl;
+        if(upa.medicos[i].disponibilidade){
+            cout << "Disponibilidade: Disponivel" << endl;
+        }else{
+            cout << "Disponibilidade: Indisponivel" << endl;
+            cout << "Paciente: " << upa.medicos[i].paciente.nome << endl;
+            cout << "Tempo de consulta: " << ((clock() - upa.medicos[i].tempo)/CLOCKS_PER_SEC)/60 << "min." << endl;
+        }
+    }
+    system("pause");
 }

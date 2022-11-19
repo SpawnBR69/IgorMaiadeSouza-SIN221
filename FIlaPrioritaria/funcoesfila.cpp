@@ -51,6 +51,9 @@ void enfileiraPrioridade(tipoFila *fila, tipoItem item){
     bool i = 1;
     int cont = 0;
     while(i){
+        if(aux == NULL){
+            break;
+        }
         if(aux->item.prioridade <= item.prioridade){
             ant = aux;
             aux = aux->prox;
@@ -63,10 +66,12 @@ void enfileiraPrioridade(tipoFila *fila, tipoItem item){
         in->item = item;
         in->prox = ant->prox;
         ant->prox = in;
+        fila->tamanho++;
     }else{
         in->item = item;
         in->prox = aux;
         fila->inicio = in;
+        fila->tamanho++;
     }
 }
 
