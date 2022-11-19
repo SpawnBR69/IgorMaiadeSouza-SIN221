@@ -26,6 +26,7 @@ int main() {
     upa upa;
     cadastraUpa(&upa);
     int dec;
+    char bruh;
     
     while(dec != 7){
         imprimeMenu();
@@ -52,7 +53,16 @@ int main() {
         case 6:
             verificaDisponibilidade(&upa);
         default:
+            cout << "Deseja realmente sair do programa?(s/n)";
+            cin >> bruh;
+            if(bruh == 's'){
+                dec = 7;
+            }else{
+                dec = 8;
+            }
             break;
         }
     }
+    cout << "Total de atendimentos no dia de HOJE: " << upa.atendimentos;
+    return 0;
 }

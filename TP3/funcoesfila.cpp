@@ -227,7 +227,10 @@ void cadastro(upa* upa){
         cout << "UPA lotada, espere um médico desocupar e tente novamente";
         return;
     }else{
-        cout << "Pacientes encaminhados!";
+        cout << "Pacientes encaminhados!" << endl;
+        if(verificaFilaVazia(upa->fila))
+            return;
+        cout << "Quantidade de pacientes ainda esperando consulta: " << upa->fila.tamanho;
         return;
     }
 }
@@ -255,6 +258,9 @@ void triagemSemCadastro(upa* upa){
         return;
     }else{
         cout << "Pacientes encaminhados!";
+        if(verificaFilaVazia(upa->fila))
+            return;
+        cout << "Quantidade de pacientes ainda esperando consulta: " << upa->fila.tamanho;
         return;
     }
 
