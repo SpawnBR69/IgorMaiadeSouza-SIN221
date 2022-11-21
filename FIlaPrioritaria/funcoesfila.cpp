@@ -39,17 +39,22 @@ void enfileira(tipoFila *fila, tipoItem item){
     if(verificaFilaVazia(*fila)){
         fila->inicio = aux;
         fila->fim = aux;
+        fila->tamanho++;
     }else{
         fila->fim->prox = aux;
         fila->fim = aux;
+        fila->tamanho++;
     }
-    fila->tamanho++;
 }
 
 void enfileiraPrioridade(tipoFila *fila, tipoItem item){
     apontador aux = fila->inicio, in = new tipoElemento, ant;
     bool i = 1;
     int cont = 0;
+    if(verificaFilaVazia(*fila)){
+        enfileira(fila,item);
+        return;
+    }
     while(i){
         if(aux == NULL){
             break;
