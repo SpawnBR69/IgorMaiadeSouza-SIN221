@@ -296,7 +296,7 @@ void imprimeAtendimentos(upa* upa){
         }
         cout << "Médico: " << upa->medicos[i].nome << endl;
         cout << "Paciente: " << upa->medicos[i].paciente.nome << endl;
-        cout << "Nuâncias: " << endl;
+        cout << "Nuances: " << endl;
         int cont2 = 0;
         for(int j = 0; j < 18; j++){
             if(upa->medicos[i].paciente.respostas[j] == 's'){
