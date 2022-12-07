@@ -71,11 +71,15 @@ bool empilha(tipoPilha* pilha, tipoItem item){
 }
 
 tipoItem desempilha(tipoPilha* pilha){
-    tipoItem item;
-    item = pilha->itens[pilha->tamanho - 1];
-    pilha->itens[pilha->tamanho - 1] = pilha->itens[pilha->tamanho];
-    pilha->tamanho--;
-    return item;
+    if(verificaPilhaVazia(*pilha)){
+        cout << "PILHA VAZIA!";
+    }else{
+        tipoItem item;
+        item = pilha->itens[pilha->tamanho - 1];
+        pilha->itens[pilha->tamanho - 1] = pilha->itens[pilha->tamanho];
+        pilha->tamanho--;
+        return item;
+    }
 }
 
 void imprimePilha(tipoPilha pilha, produtos prod[]){
