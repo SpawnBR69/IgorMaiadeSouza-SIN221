@@ -86,7 +86,7 @@ void pesquisaLinhaPorOrigemDestino(TipoLista* lista){
         if(orig && dest){
             cout << "ID: " << aux->item.id << endl;
             cout << "Companhia: " << aux->item.companhia << endl;
-            cout << "Chegada/Saída: " << chegada << "/" << saida; 
+            cout << "Chegada/Saída: " << chegada << "/" << saida << endl; 
             cout << "Valor da Passagem: " << valor_real << endl;
             rodou++;
         }
