@@ -1,5 +1,5 @@
 #include <iostream>
-#include "funcoesSimples.hpp";
+#include "funcoesSimples.hpp"
 #include <windows.h>
 
 using namespace std;
